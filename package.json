@@ -10,8 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@oclif/core": "^4.0.30",
-    "typescript": "^5.6.3"
+    "@oclif/core": "^4.0.30"
   },
   "type": "module",
   "bin": {
@@ -24,7 +23,13 @@
     "topicSeparator": " "
   },
   "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/node": "^18.19.59",
-    "ts-node": "^10.9.2"
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.11.0"
   }
 }
