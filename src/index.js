@@ -1,3 +1,5 @@
+import { add, update, list, markAs, remove } from './commands/index.js';
+
 function main() {
   const [,, command, arg1, arg2] = process.argv;
 
@@ -26,36 +28,6 @@ function main() {
     default: 
       console.log('That command is not supported');
   }
-}
-
-/**
- * Add a task
- * 
- * @param {string} taskTitle - TItle of the task to add
- */
-function add(taskTitle) {
-  console.log(`Add the following: ${taskTitle}`);
-}
-
-function update(id, newTaskTitle) {
-  console.log(`Update task with id ${id} to ${newTaskTitle}`);
-}
-
-function remove(word) {
-  console.log(`Remove task with id ${id}`);
-}
-
-function markAs(id, state) {
-  console.log(`Mark task ${id} as ${state}`);
-}
-
-function list(state = '') {
-  if (!state) {
-    console.log('List all tasks');
-    return;
-  }
-
-  console.log(`Return task with state of ${state}`);
 }
 
 main();
