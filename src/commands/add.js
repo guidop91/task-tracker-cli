@@ -1,7 +1,6 @@
 import fs from 'node:fs';
-import path from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 // Get the current file path and directory
 const __filename = fileURLToPath(import.meta.url);
@@ -24,25 +23,42 @@ function add(taskTitle) {
   fs.writeFileSync(FILE_LOCATION, JSON.stringify(taskList, null, 2));
 }
 
+/**
+ * Get the task list from file, or create if doesn't exist
+ * 
+ * @returns {undefined}
+ */
 function getOrCreateList() {
-  let file;
+  let taskList;
   try {
-    file = fs.readFileSync(FILE_LOCATION);
+    taskList = JSON.parse(fs.readFileSync(FILE_LOCATION));
   } catch (err) {
     if (err.code === 'ENOENT') {
-      file = createFile()
+      taskList = createFile()
     } else {
       console.error(err);
     }
   }
 
-  return JSON.parse(file);
+  return taskList;
 }
 
+/**
+ * Create a file and return an empty array. This initializes a task list when it doesn't exist
+ * 
+ * @returns {Array} Empty array
+ */
 function createFile() {
-  return fs.writeFileSync(FILE_LOCATION, JSON.stringify([], null, 2));
+  fs.writeFileSync(FILE_LOCATION, JSON.stringify([], null, 2));
+  return [];
 }
 
+/**
+ * 
+ * @param {string} taskTitle - Title or description of the task
+ * @param {number} id - identifier of the task
+ * @returns {object} newly created task object
+ */
 function createNewTask(taskTitle, id) {
  return {
   id,
@@ -53,6 +69,11 @@ function createNewTask(taskTitle, id) {
  }
 }
 
+/**
+ * 
+ * @param {Array<object>} taskList - list of tasks
+ * @returns {number} Number of last id that was created
+ */
 function getLastId(taskList) {
   const listLength = taskList.length;
   if (listLength === 0) return 0
