@@ -7,12 +7,13 @@ import fs from 'node:fs';
  * @param {string} taskTitle - Title of the task to add
  */
 function add(tasksObject, taskTitle) {
-  const { location, list } = tasksObject;
+  const { fileLocation, list } = tasksObject;
   const lastId = getLastId(list);
   const newTask = createNewTask(taskTitle, lastId + 1);
 
   list.push(newTask);
-  fs.writeFileSync(location, JSON.stringify(list, null, 2));
+  fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
+  console.log('Added new task', newTask)
 }
 
 /**

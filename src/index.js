@@ -16,7 +16,7 @@ function main() {
   const taskList = getOrCreateList();
   const tasksObject = {
     list: taskList,
-    location: FILE_LOCATION
+    fileLocation: FILE_LOCATION
   };
 
   if (command === '--help') {
@@ -29,7 +29,7 @@ function main() {
       add(tasksObject, arg1);
       break;
     case 'update': 
-      update(arg1, arg2);
+      update(tasksObject, arg1, arg2);
       break;
     case 'remove': 
       remove(arg1);
@@ -72,7 +72,6 @@ function getOrCreateList() {
  * @returns {Array} Empty array
  */
 function createFile() {
-  console.log(FILE_LOCATION);
   fs.writeFileSync(FILE_LOCATION, JSON.stringify([], null, 2));
   return [];
 }
