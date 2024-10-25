@@ -20,7 +20,7 @@ function main() {
   };
 
   if (command === '--help') {
-    console.log('Available commands are: add, update, remove, list');
+    console.log('Available commands are: add, update, delete, list');
     return;
   }
 
@@ -31,8 +31,9 @@ function main() {
     case 'update': 
       update(tasksObject, arg1, arg2);
       break;
-    case 'remove': 
-      remove(arg1);
+    case 'delete': 
+      // delete is a keyword in JS, so using "remove" instead
+      remove(tasksObject, arg1);
       break;
     case 'list': 
       list(arg1);

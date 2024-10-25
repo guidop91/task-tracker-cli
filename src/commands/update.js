@@ -5,7 +5,7 @@ import fs from 'node:fs';
  * @param {object} taskObject 
  * @param {Array<object>} taskObject.list - List of tasks
  * @param {string} taskObject.location - Location of file in storage
- * @param {number} id 
+ * @param {string} id 
  * @param {string} newTaskTitle 
  */
 function update(taskObject, id, newTaskTitle) {
