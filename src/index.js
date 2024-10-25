@@ -36,7 +36,7 @@ function main() {
       remove(tasksObject, arg1);
       break;
     case 'list': 
-      list(arg1);
+      list(tasksObject, arg1);
       break;
     case 'mark-as': 
       markAs(arg1, arg2);
