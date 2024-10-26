@@ -8,7 +8,8 @@ import { add, update, list, markAs, remove } from './commands/index.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const FILE_LOCATION = path.join(__dirname, '..', 'storage/task-list.json');
+const DIRECTORY_LOCATION = path.join(__dirname, '..', 'storage');
+const FILE_LOCATION = path.join(DIRECTORY_LOCATION, 'task-list.json');
 
 function main() {
   const [,, command, arg1, arg2] = process.argv;
@@ -73,6 +74,12 @@ function getOrCreateList() {
  * @returns {Array} Empty array
  */
 function createFile() {
+  // Check if the directory exists
+  if (!fs.existsSync(DIRECTORY_LOCATION)) {
+    fs.mkdirSync(DIRECTORY_LOCATION, { recursive: true });
+    console.log(`Directory not found, created: ${DIRECTORY_LOCATION}`);
+  }
+
   fs.writeFileSync(FILE_LOCATION, JSON.stringify([], null, 2));
   return [];
 }

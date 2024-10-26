@@ -24,13 +24,13 @@ function add(tasksObject, taskTitle) {
  * @returns {object} newly created task object
  */
 function createNewTask(taskTitle, id) {
- return {
+  return {
   id,
   description: taskTitle,
   status: 'new',
   createdAt: new Date(),
   updatedAt: new Date()
- }
+  }
 }
 
 /**
