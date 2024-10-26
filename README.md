@@ -2,9 +2,25 @@
 
 Task tracker CLI, built only with native Node packages.
 
+## Install locally
+
+The project uses the latest version of node (at the time of this development, v23). You can use [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) to install it and use it:
+
+```bash
+nvm install
+```
+
+Clone the project to your machine, and `cd` into the directory.
+
+Run the following command to make the `task-cli` alias available:
+
+```bash
+npm link
+```
+
 The list of commands and their usage is given below:
 
-```
+```bash
 # Adding a new task
 task-cli add "Buy groceries"
 # Output: Task added successfully (ID: 1)
@@ -26,7 +42,7 @@ task-cli list todo
 task-cli list in-progress
 ```
 
-Task Properties
+## Task Properties
 
 Each task should have the following properties:
 

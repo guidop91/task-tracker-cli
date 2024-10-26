@@ -4,7 +4,10 @@
   "description": "This is a practice project that is suggested as a beginner project in roadmap.sh",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/index.js"
+  },
+  "bin": {
+    "task-cli": "./src/index.js"
   },
   "keywords": [],
   "author": "",
