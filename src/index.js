@@ -21,7 +21,7 @@ function main() {
   };
 
   if (command === '--help') {
-    console.log('Available commands are: add, update, delete, list, mark-as');
+    console.log(HELP_COMMAND_OUTPUT.trim());
     return;
   }
 
@@ -47,7 +47,7 @@ function main() {
       break;
 
     default: 
-      console.error('That command is not supported');
+      console.error('That command is not supported. Check "--help" for available commands');
   }
 }
 
@@ -86,5 +86,39 @@ function createFile() {
   fs.writeFileSync(FILE_LOCATION, JSON.stringify([], null, 2));
   return [];
 }
+
+const HELP_COMMAND_OUTPUT = `
+----- Task tracker CLI -----
+
+Create a task tracker accessible from your CLI. These are the available commands and how to use them:
+
+- add "<Task description>"
+
+Add a task with a description of your choosing.
+
+- delete <task_id>
+
+Delete a task given its identifier.
+
+- update <task_id> "<New task description>"
+
+Modify the description of a task, given its identifier.
+
+- list
+
+List all tasks
+
+- list <status>
+
+List tasks with given status
+
+- mark-in-progress <task_id>
+
+Mark task with given identifier as "in progress"
+
+- mark-done <task_id>
+
+Mark task with given identifier as "done"
+`
 
 main();
