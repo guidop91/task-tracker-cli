@@ -21,7 +21,7 @@ function main() {
   };
 
   if (command === '--help') {
-    console.log('Available commands are: add, update, delete, list');
+    console.log('Available commands are: add, update, delete, list, mark-as');
     return;
   }
 
@@ -39,8 +39,11 @@ function main() {
     case 'list': 
       list(tasksObject, arg1);
       break;
-    case 'mark-as': 
-      markAs(arg1, arg2);
+    case 'mark-in-progress': 
+      markAs(tasksObject, arg1, 'in progress');
+      break;
+    case 'mark-done': 
+      markAs(tasksObject, arg1, 'done');
       break;
 
     default: 
