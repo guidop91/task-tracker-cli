@@ -1,11 +1,12 @@
 function list(tasksObject, state = '') {
+  const LIST_STRING = 'List';
+  console.time(LIST_STRING);
   const { list } = tasksObject;
   if (state === '') {
     console.log('Listing all tasks\n');
     list.forEach(element => {
       console.log(element);
     });
-    return;
   } else {
     const filteredList = list.filter(task => task.status === state);
     if (filteredList.length === 0) {
@@ -16,6 +17,7 @@ function list(tasksObject, state = '') {
       console.log(element);
     });
   }
+  console.timeEnd(LIST_STRING);
 }
 
 export { list };
