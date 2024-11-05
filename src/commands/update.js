@@ -9,6 +9,8 @@ import fs from 'node:fs';
  * @param {string} newTaskTitle 
  */
 function update(taskObject, id, newTaskTitle) {
+  const UPDATE_STRING = 'Update';
+  console.time(UPDATE_STRING);
   const { list, fileLocation } = taskObject;
   if (list.length === 0) {
     throw new Error('List has no tasks, cannot update');
@@ -26,6 +28,7 @@ function update(taskObject, id, newTaskTitle) {
 
   fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
   console.log(`Updated task with id ${id} to "${newTaskTitle}"`);
+  console.timeEnd(UPDATE_STRING);
 }
 
 export { update };

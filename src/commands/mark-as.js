@@ -9,6 +9,8 @@ import fs from 'node:fs';
  * @returns {undefined}
  */
 function markAs(tasksObject, id, state) {
+  const MARK_AS_STRING = 'Mark as';
+  console.time(MARK_AS_STRING);
   const { fileLocation, list } = tasksObject;
 
   const taskToEdit = list.find(task => task.id === Number(id));
@@ -27,6 +29,7 @@ function markAs(tasksObject, id, state) {
   list.splice(taskIndex, 1, taskToEdit);
   fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
   console.log(`Marked task ${id} as ${state}`);
+  console.timeEnd(MARK_AS_STRING);
 }
 
 export { markAs };

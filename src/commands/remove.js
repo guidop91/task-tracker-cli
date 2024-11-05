@@ -7,6 +7,8 @@ import fs from 'node:fs';
  * @param {string} id - Identifier of task to delete
  */
 function remove(tasksObject, id) {
+  const REMOVE_STRING = 'Remove';
+  console.time(REMOVE_STRING);
   const { fileLocation, list } = tasksObject;
 
   // Get index of task to delete
@@ -18,6 +20,7 @@ function remove(tasksObject, id) {
   list.splice(taskIndex, 1);
   fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
   console.log(`Task with id ${id} successfully removed`);
+  console.timeEnd(REMOVE_STRING);
 }
 
 export { remove };
