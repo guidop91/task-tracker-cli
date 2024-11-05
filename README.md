@@ -18,6 +18,16 @@ Run the following command to make the `task-cli` alias available:
 npm link
 ```
 
+## Add autocompletion
+
+Add this to your Bash/Zsh configuration file:
+
+```
+source /path/to/this/project/completion.sh
+```
+
+
+
 The list of commands and their usage is given below:
 
 ```bash
