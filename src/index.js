@@ -47,6 +47,9 @@ function main() {
     case 'mark-done': 
       markAs(tasksObject, arg1, 'done');
       break;
+    case 'done': 
+      markAs(tasksObject, arg1, 'done');
+      break;
 
     default: 
       console.error('That command is not supported. Check "--help" for available commands');
