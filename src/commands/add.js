@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { randomUUID } from 'node:crypto';
 
 /**
  * Add a task to the list (create list if doesn't exist)
@@ -8,10 +9,10 @@ import fs from 'node:fs';
  */
 function add(tasksObject, taskTitle) {
   const { fileLocation, list } = tasksObject;
-  const lastId = getLastId(list);
-  const newTask = createNewTask(taskTitle, lastId + 1);
+  const id = randomUUID();
+  const newTask = createNewTask(taskTitle, id);
 
-  list.push(newTask);
+  list['new'][id] = newTask;
   fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
   console.log('Added new task', newTask)
 }
@@ -31,19 +32,6 @@ function createNewTask(taskTitle, id) {
     createdAt: new Date(),
     updatedAt: new Date()
   }
-}
-
-/**
- * Get the id of the last task in the list
- * 
- * @param {Array<object>} taskList - list of tasks
- * @returns {number} Number of last id that was created
- */
-function getLastId(taskList) {
-  const listLength = taskList.length;
-  if (listLength === 0) return 0
-
-  return taskList[listLength - 1].id;
 }
 
 export { add };

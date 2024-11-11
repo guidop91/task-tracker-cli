@@ -12,19 +12,16 @@ function update(taskObject, id, newTaskTitle) {
   const UPDATE_STRING = 'Update';
   console.time(UPDATE_STRING);
   const { list, fileLocation } = taskObject;
-  if (list.length === 0) {
-    throw new Error('List has no tasks, cannot update');
-  }
 
-  const taskToUpdate = list.find(task => task.id === Number(id));
+  const taskToUpdate = list['new'][id] || list['in progress'][id] || list['done'][id];
   if (!taskToUpdate) {
     throw new Error(`Task with id ${id} was not found`);
   }
-  const taskIndex = list.findIndex(task => task.id === id);
+  const { status } = taskToUpdate;
 
   taskToUpdate.description = newTaskTitle;
   taskToUpdate.updatedAt = new Date();
-  list.splice(taskIndex, 1, taskToUpdate);
+  list[status][id] = taskToUpdate;
 
   fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
   console.log(`Updated task with id ${id} to "${newTaskTitle}"`);

@@ -41,6 +41,11 @@ function createFile() {
     console.log(`Directory not found, created: ${DIRECTORY_LOCATION}`);
   }
 
-  fs.writeFileSync(FILE_LOCATION, JSON.stringify([], null, 2));
+  const initialStructure = {
+    new: {},
+    "in progress": {},
+    done: {},
+  };
+  fs.writeFileSync(FILE_LOCATION, JSON.stringify(initialStructure, null, 2));
   return [];
 }
