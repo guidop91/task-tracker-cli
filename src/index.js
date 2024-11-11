@@ -1,25 +1,15 @@
 #!/usr/bin/env node
 
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'node:fs';
-
+import { FILE_LOCATION, getOrCreateList } from './helpers.js';
 import { add, update, list, markAs, remove } from './commands/index.js';
-
-// Get the current file path and directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const DIRECTORY_LOCATION = path.join(__dirname, '..', 'storage');
-const FILE_LOCATION = path.join(DIRECTORY_LOCATION, 'task-list.json');
 
 function main() {
   const [,, command, arg1, arg2] = process.argv;
 
   const taskList = getOrCreateList();
   const tasksObject = {
-    list: taskList,
-    fileLocation: FILE_LOCATION
+    list: taskList, 
+    fileLocation: FILE_LOCATION,
   };
 
   if (command === '--help') {
@@ -54,42 +44,6 @@ function main() {
     default: 
       console.error('That command is not supported. Check "--help" for available commands');
   }
-}
-
-/**
- * Get the task list from file, or create if doesn't exist
- * 
- * @returns {undefined}
- */
-function getOrCreateList() {
-  let taskList;
-  try {
-    taskList = JSON.parse(fs.readFileSync(FILE_LOCATION));
-  } catch (err) {
-    if (err.code === 'ENOENT') {
-      taskList = createFile()
-    } else {
-      console.error(err);
-    }
-  }
-
-  return taskList;
-}
-
-/**
- * Create a file and return an empty array. This initializes a task list when it doesn't exist
- * 
- * @returns {Array} Empty array
- */
-function createFile() {
-  // Check if the directory exists
-  if (!fs.existsSync(DIRECTORY_LOCATION)) {
-    fs.mkdirSync(DIRECTORY_LOCATION, { recursive: true });
-    console.log(`Directory not found, created: ${DIRECTORY_LOCATION}`);
-  }
-
-  fs.writeFileSync(FILE_LOCATION, JSON.stringify([], null, 2));
-  return [];
 }
 
 const HELP_COMMAND_OUTPUT = `
