@@ -8,6 +8,8 @@ import { randomUUID } from 'node:crypto';
  * @param {string} taskTitle - Title of the task to add
  */
 function add(tasksObject, taskTitle) {
+  const ADD_STRING = 'Mark as';
+  console.time(ADD_STRING);
   const { fileLocation, list } = tasksObject;
   const id = randomUUID();
   const newTask = createNewTask(taskTitle, id);
@@ -15,6 +17,7 @@ function add(tasksObject, taskTitle) {
   list['new'][id] = newTask;
   fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
   console.log('Added new task', newTask)
+  console.timeEnd(ADD_STRING);
 }
 
 /**
