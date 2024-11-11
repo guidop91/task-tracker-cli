@@ -4,18 +4,9 @@ function list(tasksObject, state = '') {
   const { list } = tasksObject;
   if (state === '') {
     console.log('Listing all tasks\n');
-    list.forEach(element => {
-      console.log(element);
-    });
+    ['new', 'in progress', 'done'].forEach(status => console.log(`${status.toUpperCase()}\n`, list[status]));
   } else {
-    const filteredList = list.filter(task => task.status === state);
-    if (filteredList.length === 0) {
-      console.error(`There are no tasks with a status of "${state}"`);
-      return;
-    }
-    filteredList.forEach(element => {
-      console.log(element);
-    });
+    console.log(`${state.toUpperCase()}\n`, list[state])
   }
   console.timeEnd(LIST_STRING);
 }

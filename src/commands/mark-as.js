@@ -5,30 +5,32 @@ import fs from 'node:fs';
  * 
  * @param {Array<object>} tasksObject - list of tasks available
  * @param {string} id - identifier of task
- * @param {string} state - state to assign to task
+ * @param {string} newState - state to assign to task
  * @returns {undefined}
  */
-function markAs(tasksObject, id, state) {
+function markAs(tasksObject, id, newState) {
   const MARK_AS_STRING = 'Mark as';
   console.time(MARK_AS_STRING);
   const { fileLocation, list } = tasksObject;
 
-  const taskToEdit = list.find(task => task.id === Number(id));
+  const taskToEdit = list['new'][id] || list['in progress'][id] || list['done'][id];
   if (!taskToEdit) {
     throw new Error(`Task with id ${id} was not found`);
   }
-
-  const taskIndex = list.findIndex(task => task.id === Number(id));
-  if (taskToEdit.status === state) {
-    console.info('Status was not changed');
+  const { status } = taskToEdit;
+  if (status === newState) {
+    console.info('Task already has this status, not modifying');
     return;
   }
-  taskToEdit.status = state;
-  taskToEdit.updatedAt = new Date();
 
-  list.splice(taskIndex, 1, taskToEdit);
+  taskToEdit.status = newState;
+  taskToEdit.updatedAt = new Date();
+  
+  delete list[status][id];
+  list[newState][id] = taskToEdit;
+
   fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
-  console.log(`Marked task ${id} as ${state}`);
+  console.log(`Marked task ${id} as ${newState}`);
   console.timeEnd(MARK_AS_STRING);
 }
 

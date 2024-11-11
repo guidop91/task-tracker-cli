@@ -12,12 +12,13 @@ function remove(tasksObject, id) {
   const { fileLocation, list } = tasksObject;
 
   // Get index of task to delete
-  const taskIndex = list.findIndex(task => task.id === Number(id));
-  if (taskIndex === -1) {
-    throw new Error(`Task with id ${id} not found`);
+  const taskToRemove = list['new'][id] || list['in progress'][id] || list['done'][id];
+  if (!taskToRemove) {
+    throw new Error(`Task with id ${id} was not found`);
   }
 
-  list.splice(taskIndex, 1);
+  const { status } = taskToRemove
+  delete list[status][id];
   fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
   console.log(`Task with id ${id} successfully removed`);
   console.timeEnd(REMOVE_STRING);
