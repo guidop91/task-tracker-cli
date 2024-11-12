@@ -26,7 +26,7 @@ function markAs(tasksObject, id, state) {
   taskToEdit.status = state;
   taskToEdit.updatedAt = new Date();
 
-  list.splice(taskIndex, 1, taskToEdit);
+  list.splice(taskIndex + 1, 1, taskToEdit);
   fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
   console.log(`Marked task ${id} as ${state}`);
   console.timeEnd(MARK_AS_STRING);

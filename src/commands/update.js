@@ -24,7 +24,7 @@ function update(taskObject, id, newTaskTitle) {
 
   taskToUpdate.description = newTaskTitle;
   taskToUpdate.updatedAt = new Date();
-  list.splice(taskIndex, 1, taskToUpdate);
+  list.splice(taskIndex + 1, 1, taskToUpdate);
 
   fs.writeFileSync(fileLocation, JSON.stringify(list, null, 2));
   console.log(`Updated task with id ${id} to "${newTaskTitle}"`);
